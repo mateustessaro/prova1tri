@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz - Várias Categorias</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Quiz - Várias Categorias</h1>
+    </header>
+    <main>
+      <div id="category-buttons">
+        <button class="category-btn" onclick="loadCategory('geografia')">Geografia</button>
+        <button class="category-btn" onclick="loadCategory('historia')">História</button>
+        <button class="category-btn" onclick="loadCategory('ciencias')">Ciências</button>
+      </div>
+      <div id="quiz-container">
+        <!-- Aqui será carregada cada questão do quiz dinamicamente com JavaScript -->
+      </div>
+    </main>
+    <button onclick="goToMainPage()" id="main-page-btn" class="hidden">Voltar para a Página Principal</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
