@@ -1,108 +1,222 @@
+// Dados dos quizzes por categoria
 const quizzes = {
-  geografia: [
-    { question: "Qual é a capital do Brasil?", options: ["A) Brasília", "B) Rio de Janeiro", "C) São Paulo", "D) Belo Horizonte"], answer: "A" },
-    { question: "Qual é o maior país do mundo?", options: ["A) China", "B) Estados Unidos", "C) Canadá", "D) Rússia"], answer: "D" },
-    { question: "Qual é o país mais populoso do mundo?", options: ["A) China", "B) Índia", "C) Estados Unidos", "D) Brasil"], answer: "A" },
-    { question: "Qual é o rio mais extenso do mundo?", options: ["A) Nilo", "B) Amazonas", "C) Yangtzé", "D) Mississipi"], answer: "B" },
-    { question: "Qual é o maior deserto do mundo?", options: ["A) Deserto do Saara", "B) Deserto do Atacama", "C) Deserto da Arábia", "D) Deserto da Patagônia"], answer: "A" },
-    { question: "Qual é o país com maior número de ilhas no mundo?", options: ["A) Indonésia", "B) Filipinas", "C) Japão", "D) Grécia"], answer: "A" },
-    { question: "Qual é a montanha mais alta do mundo?", options: ["A) Everest", "B) K2", "C) Kangchenjunga", "D) Lhotse"], answer: "A" },
-    { question: "Qual é o maior oceano do mundo?", options: ["A) Pacífico", "B) Atlântico", "C) Índico", "D) Antártico"], answer: "A" }
+  matematica: [
+    { question: "Qual é a fórmula do cálculo da área de um retângulo?", options: ["A) Largura x Altura", "B) Comprimento x Largura", "C) Largura + Altura", "D) Comprimento + Altura"], answer: "A" },
+    { question: "Quanto é 2 + 2?", options: ["A) 3", "B) 4", "C) 5", "D) 6"], answer: "B" },
+    // Adicione mais perguntas aqui
+    
+  ],
+  biologia: [
+    { question: "Qual é o processo de transformação de energia solar em energia química?", options: ["A) Fotossíntese", "B) Respiração Celular", "C) Mitose", "D) Meiose"], answer: "A" },
+    { question: "Qual é o nome do órgão responsável pela produção de insulina no corpo humano?", options: ["A) Pâncreas", "B) Fígado", "C) Rim", "D) Estômago"], answer: "A" },
+    // Adicione mais perguntas aqui
   ],
   historia: [
-    { question: "Quem descobriu o Brasil?", options: ["A) Cristóvão Colombo", "B) Pedro Álvares Cabral", "C) Fernão de Magalhães", "D) Vasco da Gama"], answer: "B" },
-    { question: "Em que ano ocorreu a Revolução Francesa?", options: ["A) 1789", "B) 1832", "C) 1815", "D) 1756"], answer: "A" },
-    { question: "Qual imperador romano incendiou Roma?", options: ["A) Júlio César", "B) Nero", "C) Augusto", "D) Trajano"], answer: "B" },
+    { question: "Em que ano ocorreu a Independência do Brasil?", options: ["A) 1808", "B) 1822", "C) 1889", "D) 1900"], answer: "B" },
     { question: "Quem foi o primeiro presidente do Brasil?", options: ["A) Deodoro da Fonseca", "B) Getúlio Vargas", "C) José Sarney", "D) Jânio Quadros"], answer: "A" },
-    { question: "Qual foi o primeiro país a adotar o cristianismo como religião oficial?", options: ["A) Roma", "B) Grécia", "C) Egito", "D) Armênia"], answer: "D" },
-    { question: "Qual foi o último imperador do Brasil?", options: ["A) Dom Pedro II", "B) Dom Pedro I", "C) Dom João VI", "D) Dom Miguel I"], answer: "A" },
-    { question: "Em que ano começou a Primeira Guerra Mundial?", options: ["A) 1914", "B) 1918", "C) 1939", "D) 1945"], answer: "A" },
-    { question: "Quem foi o líder da Revolução Cubana?", options: ["A) Fidel Castro", "B) Che Guevara", "C) Fulgêncio Batista", "D) Raúl Castro"], answer: "A" }
-  ],
-  ciencias: [
-    { question: "Qual é o elemento mais abundante na crosta terrestre?", options: ["A) Oxigênio", "B) Carbono", "C) Silício", "D) Ferro"], answer: "A" },
-    { question: "Qual é a unidade básica da vida?", options: ["A) Célula", "B) Átomo", "C) Molécula", "D) DNA"], answer: "A" },
-    { question: "Qual é o nome da teoria que explica a origem das espécies?", options: ["A) Teoria da Evolução", "B) Teoria do Big Bang", "C) Teoria do Criacionismo", "D) Teoria da Relatividade"], answer: "A" },
-    { question: "Qual é o planeta mais próximo do Sol?", options: ["A) Mercúrio", "B) Vênus", "C) Terra", "D) Marte"], answer: "A" },
-    { question: "Qual é a parte do corpo humano responsável pelo bombeamento do sangue?", options: ["A) Coração", "B) Fígado", "C) Pâncreas", "D) Rim"], answer: "A" },
-    { question: "Qual é o maior osso do corpo humano?", options: ["A) Fêmur", "B) Tíbia", "C) Fíbula", "D) Úmero"], answer: "A" },
-    { question: "Qual é o ácido presente no limão?", options: ["A) Ácido Clorídrico", "B) Ácido Sulfúrico", "C) Ácido Cítrico", "D) Ácido Acético"], answer: "C" },
-    { question: "Qual é a velocidade da luz no vácuo?", options: ["A) Aproximadamente 300.000 km/s", "B) Aproximadamente 150.000 km/s", "C) Aproximadamente 600.000 km/s", "D) Aproximadamente 1.000.000 km/s"], answer: "A" }
+    // Adicione mais perguntas aqui
   ]
 };
 
-let currentCategory = '';
-let currentQuestion = 0;
-let correctAnswers = 0;
+// Armazenamento temporário dos usuários registrados
+const registeredUsers = {};
 
+// Armazenamento temporário dos rankings de acertos
+let rankings = [];
+
+// Função para carregar as perguntas de uma categoria
 function loadCategory(category) {
-  currentCategory = category;
-  currentQuestion = 0;
-  correctAnswers = 0;
-  displayQuestion();
-}
-
-function displayQuestion() {
+  const categoryButtons = document.getElementById("category-buttons");
   const quizContainer = document.getElementById("quiz-container");
-  quizContainer.innerHTML = "";
-  const quiz = quizzes[currentCategory][currentQuestion];
-  const quizCard = document.createElement("div");
-  quizCard.classList.add("quiz-card");
-  const options = quiz.options.map(option => `
-    <label>
-      <input type="radio" name="answer" value="${option.split(')')[0]}">
-      ${option}
-    </label>
- 
 
-  `).join('');
-  quizCard.innerHTML = `
-    <h3>${quiz.question}</h3>
-    <div class="options">${options}</div>
-    <button onclick="checkAnswer('${quiz.answer}')">Verificar</button>
-    <button onclick="nextQuestion()" id="next-btn" style="display: none;">Próxima Pergunta</button>
-    <p id="feedback"></p>
-    <button onclick="goToMainPage()" id="main-page-btn" class="hidden">Voltar para a Página Principal</button>
-  `;
-  quizContainer.appendChild(quizCard);
+  // Esconde os botões de categoria e mostra o contêiner do quiz
+  categoryButtons.classList.add("hidden");
+  quizContainer.classList.remove("hidden");
+
+  // Limpa o conteúdo anterior do contêiner do quiz
+  quizContainer.innerHTML = "";
+
+  // Carrega as perguntas da categoria selecionada
+  const questions = quizzes[category];
+  questions.forEach((question, index) => {
+    const quizCard = document.createElement("div");
+    quizCard.classList.add("quiz-card");
+    quizCard.innerHTML = `
+      <h3>${index + 1}. ${question.question}</h3>
+      <div class="options">
+        ${question.options.map(option => `<label><input type="radio" name="answer${index}" value="${option.split(')')[0]}">${option}</label>`).join('')}
+      </div>
+      <button onclick="checkAnswer('${category}', ${index}, '${question.answer}')">Verificar</button>
+      <button onclick="nextQuestion(${index + 1}, ${questions.length})" id="next-btn${index}" class="hidden">Próxima Pergunta</button>
+      <p id="feedback${index}"></p>
+    `;
+    quizContainer.appendChild(quizCard);
+  });
 }
 
-function checkAnswer(correctAnswer) {
-  const userAnswer = document.querySelector("input[name='answer']:checked");
-  const feedback = document.getElementById("feedback");
-  const nextBtn = document.getElementById("next-btn");
-  const mainPageBtn = document.getElementById("main-page-btn");
+// Função de login
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  // Verifica se o usuário e a senha estão corretos
+  if (registeredUsers[username] === password) {
+    // Login bem-sucedido, mostra os botões de categoria
+    document.getElementById("login-form").classList.add("hidden");
+    document.getElementById("category-buttons").classList.remove("hidden");
+    document.getElementById("ranking").classList.remove("hidden");
+    document.getElementById("logout-btn").classList.remove("hidden");
+  } else {
+    alert("Usuário ou senha incorretos.");
+  }
+}
+
+// Função de registro
+function register() {
+  const newUsername = document.getElementById("new-username").value;
+  const newPassword = document.getElementById("new-password").value;
+
+  // Verifica se os campos de usuário e senha foram preenchidos
+  if (newUsername && newPassword) {
+    // Registra o novo usuário
+    registeredUsers[newUsername] = newPassword;
+    alert("Novo usuário cadastrado com sucesso!");
+    // Limpa os campos do formulário de registro
+    document.getElementById("new-username").value = "";
+    document.getElementById("new-password").value = "";
+    // Esconde o formulário de registro e mostra o formulário de login
+    hideRegisterForm();
+  } else {
+    alert("Por favor, preencha todos os campos.");
+  }
+}
+
+// Função para exibir o formulário de registro
+function showRegisterForm() {
+  document.getElementById("login-form").classList.add("hidden");
+  document.getElementById("register-form").classList.remove("hidden");
+}
+
+// Função para esconder o formulário de registro
+function hideRegisterForm() {
+  document.getElementById("register-form").classList.add("hidden");
+  document.getElementById("login-form").classList.remove("hidden");
+}
+
+// Função para verificar a resposta selecionada
+function checkAnswer(category, questionIndex, correctAnswer) {
+  const userAnswer = document.querySelector(`input[name="answer${questionIndex}"]:checked`);
+  const feedback = document.getElementById(`feedback${questionIndex}`);
+  const nextBtn = document.getElementById(`next-btn${questionIndex}`);
 
   if (userAnswer && userAnswer.value === correctAnswer) {
     feedback.textContent = "Você acertou!";
     feedback.style.color = "green";
-    correctAnswers++;
+    // Adiciona 1 ao número de acertos do usuário
+    updateRankings(category, 1);
   } else {
     feedback.textContent = "Está incorreto.";
     feedback.style.color = "red";
+    // Adiciona 0 ao número de acertos do usuário
+    updateRankings(category, 0);
   }
-  nextBtn.style.display = "block";
-  mainPageBtn.style.display = "block";
+  nextBtn.classList.remove("hidden");
 }
 
-function nextQuestion() {
-  const nextBtn = document.getElementById("next-btn");
-  const feedback = document.getElementById("feedback");
-  const mainPageBtn = document.getElementById("main-page-btn");
-  
-  nextBtn.style.display = "none";
-  feedback.textContent = "";
-  mainPageBtn.style.display = "none";
-  currentQuestion++;
-  if (currentQuestion < quizzes[currentCategory].length) {
-    displayQuestion();
+// Função para passar para a próxima pergunta
+function nextQuestion(nextIndex, totalQuestions) {
+  const currentQuizCard = document.querySelector(`.quiz-card:nth-child(${nextIndex})`);
+  const nextQuizCard = document.querySelector(`.quiz-card:nth-child(${nextIndex + 1})`);
+
+  currentQuizCard.classList.add("hidden");
+  if (nextQuizCard) {
+    nextQuizCard.classList.remove("hidden");
   } else {
-    feedback.textContent = `Quiz finalizado! Você acertou ${correctAnswers} de ${quizzes[currentCategory].length} questões.`;
-    feedback.style.color = "blue";
-    mainPageBtn.style.display = "block";
+    // Se não houver mais perguntas, exibe a mensagem de quiz concluído
+    const quizContainer = document.getElementById("quiz-container");
+    quizContainer.innerHTML = `<p>Quiz finalizado! Você concluiu todas as ${totalQuestions} perguntas.</p>`;
   }
 }
 
-function goToMainPage() {
-  window.location.reload(); // Recarrega a página principal
+// Função para atualizar os rankings de acertos
+function updateRankings(category, score) {
+  const username = document.getElementById("username").value;
+  // Verifica se o usuário já está no ranking
+  const userIndex = rankings.findIndex(entry => entry.username === username && entry.category === category);
+  if (userIndex !== -1) {
+    // Atualiza o número de acertos do usuário
+    rankings[userIndex].score += score;
+  } else {
+    // Adiciona o usuário ao ranking
+    rankings.push({ username, category, score });
+  }
+  // Atualiza a exibição do ranking
+  displayRankings();
 }
+
+// Função para exibir o ranking na tela
+function displayRankings() {
+  const rankingList = document.getElementById("ranking-list");
+  // Limpa a lista antes de atualizar
+  rankingList.innerHTML = "";
+  // Ordena o ranking por número de acertos (maior para menor)
+  rankings.sort((a, b) => b.score - a.score);
+  // Exibe cada entrada do ranking na lista
+  rankings.forEach((entry, index) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${index + 1}. ${entry.username}: ${entry.score} acertos`;
+    rankingList.appendChild(listItem);
+  });
+}
+
+// Função de logout
+function logout() {
+  document.getElementById("category-buttons").classList.add("hidden");
+  document.getElementById("quiz-container").classList.add("hidden");
+  document.getElementById("ranking").classList.add("hidden");
+  document.getElementById("login-form").classList.remove("hidden");
+  document.getElementById("logout-btn").classList.add("hidden");
+}
+// Função para carregar as perguntas de uma categoria
+function loadCategory(category) {
+  const categoryButtons = document.getElementById("category-buttons");
+  const quizContainer = document.getElementById("quiz-container");
+
+  // Esconde os botões de categoria e mostra o contêiner do quiz
+  categoryButtons.classList.add("hidden");
+  quizContainer.classList.remove("hidden");
+
+  // Limpa o conteúdo anterior do contêiner do quiz
+  quizContainer.innerHTML = "";
+
+  // Adiciona o botão "Voltar"
+  const backButton = document.createElement("button");
+  backButton.textContent = "VOLTAR";
+  backButton.onclick = goToMainScreen;
+  quizContainer.appendChild(backButton);
+
+  // Carrega as perguntas da categoria selecionada
+  const questions = quizzes[category];
+  questions.forEach((question, index) => {
+    const quizCard = document.createElement("div");
+    quizCard.classList.add("quiz-card");
+    quizCard.innerHTML = `
+      <h3>${index + 1}. ${question.question}</h3>
+      <div class="options">
+        ${question.options.map(option => `<label><input type="radio" name="answer${index}" value="${option.split(')')[0]}">${option}</label>`).join('')}
+      </div>
+      <button onclick="checkAnswer('${category}', ${index}, '${question.answer}')">Verificar</button>
+      <p id="feedback${index}"></p>
+    `;
+    quizContainer.appendChild(quizCard);
+  });
+}
+
+// Função para voltar para a tela principal
+function goToMainScreen() {
+  document.getElementById("category-buttons").classList.remove("hidden");
+  document.getElementById("quiz-container").classList.add("hidden");
+  document.getElementById("ranking").classList.remove("hidden");
+}
+
+

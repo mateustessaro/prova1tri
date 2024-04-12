@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizzes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header-container">
+    <div class="header">
+      <h1 class="quizzes-title">Quizzes</h1>
+    </div>
+  </div>
+  <div class="container">
+    <main>
+      <div id="login-form">
+        <input type="text" id="username" placeholder="Nome de usuário">
+        <input type="password" id="password" placeholder="Senha">
+        <button onclick="login()">Login</button>
+        <button onclick="showRegisterForm()">Registrar</button>
+      </div>
+      <div id="register-form" class="hidden">
+        <input type="text" id="new-username" placeholder="Novo nome de usuário">
+        <input type="password" id="new-password" placeholder="Nova senha">
+        <button onclick="register()">Registrar</button>
+        <button onclick="hideRegisterForm()">Cancelar</button>
+      </div>
+    
+      <div id="quiz-container" class="hidden"></div>
+      <div id="ranking" class="hidden">
+        <h2>Ranking de Acertos</h2>
+        <ul id="ranking-list"></ul>
+      </div>
+    </main>
+    <button onclick="logout()" id="logout-btn" class="hidden">Sair</button>
+  </div>
+  <div id="category-buttons" class="hidden">
+    <button onclick="loadCategory('matematica')">
+      <img src="/13086795-fundo-de-elementos-de-matematica-dos-desenhos-animados-logotipo-de-educacao-vetor.jpg" alt="Matemática">
+    </button>
+    <button onclick="loadCategory('biologia')">
+      <img src="biologia.jpg" alt="Biologia">
+    </button>
+    <button onclick="loadCategory('historia')">
+      <img src="historia.jpg" alt="História">
+    </button>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
