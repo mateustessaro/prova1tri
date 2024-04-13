@@ -1,19 +1,18 @@
-// Dados dos quizzes por categoria
+// Armazenamento temporário dos quizzes por categoria
 const quizzes = {
   matematica: [
     { question: "Qual é a fórmula do cálculo da área de um retângulo?", options: ["A) Largura x Altura", "B) Comprimento x Largura", "C) Largura + Altura", "D) Comprimento + Altura"], answer: "A" },
-    { question: "Quanto é 2 + 2?", options: ["A) 3", "B) 4", "C) 5", "D) 6"], answer: "B" },
+    { question: "Quanto é 2 + 2?", options: ["A) 3", "B) 4", "C) 5", "D) 6"], answer: "B" }
     // Adicione mais perguntas aqui
-    
   ],
   biologia: [
     { question: "Qual é o processo de transformação de energia solar em energia química?", options: ["A) Fotossíntese", "B) Respiração Celular", "C) Mitose", "D) Meiose"], answer: "A" },
-    { question: "Qual é o nome do órgão responsável pela produção de insulina no corpo humano?", options: ["A) Pâncreas", "B) Fígado", "C) Rim", "D) Estômago"], answer: "A" },
+    { question: "Qual é o nome do órgão responsável pela produção de insulina no corpo humano?", options: ["A) Pâncreas", "B) Fígado", "C) Rim", "D) Estômago"], answer: "A" }
     // Adicione mais perguntas aqui
   ],
   historia: [
     { question: "Em que ano ocorreu a Independência do Brasil?", options: ["A) 1808", "B) 1822", "C) 1889", "D) 1900"], answer: "B" },
-    { question: "Quem foi o primeiro presidente do Brasil?", options: ["A) Deodoro da Fonseca", "B) Getúlio Vargas", "C) José Sarney", "D) Jânio Quadros"], answer: "A" },
+    { question: "Quem foi o primeiro presidente do Brasil?", options: ["A) Deodoro da Fonseca", "B) Getúlio Vargas", "C) José Sarney", "D) Jânio Quadros"], answer: "A" }
     // Adicione mais perguntas aqui
   ]
 };
@@ -21,8 +20,8 @@ const quizzes = {
 // Armazenamento temporário dos usuários registrados
 const registeredUsers = {};
 
-// Armazenamento temporário dos rankings de acertos
-let rankings = [];
+// Armazenamento temporário dos rankings de acertos por usuário e categoria
+const userRankings = {};
 
 // Função para carregar as perguntas de uma categoria
 function loadCategory(category) {
@@ -36,6 +35,18 @@ function loadCategory(category) {
   // Limpa o conteúdo anterior do contêiner do quiz
   quizContainer.innerHTML = "";
 
+  // Adiciona o botão "Voltar"
+  const backButton = document.createElement("button");
+  backButton.textContent = "VOLTAR";
+  backButton.onclick = goToMainScreen;
+  quizContainer.appendChild(backButton);
+
+  // Adiciona o botão "Resoluções Gerais"
+  const showSolutionsButton = document.createElement("button");
+  showSolutionsButton.textContent = "Resoluções Gerais";
+  showSolutionsButton.onclick = showGeneralSolutions;
+  quizContainer.appendChild(showSolutionsButton);
+
   // Carrega as perguntas da categoria selecionada
   const questions = quizzes[category];
   questions.forEach((question, index) => {
@@ -47,11 +58,17 @@ function loadCategory(category) {
         ${question.options.map(option => `<label><input type="radio" name="answer${index}" value="${option.split(')')[0]}">${option}</label>`).join('')}
       </div>
       <button onclick="checkAnswer('${category}', ${index}, '${question.answer}')">Verificar</button>
-      <button onclick="nextQuestion(${index + 1}, ${questions.length})" id="next-btn${index}" class="hidden">Próxima Pergunta</button>
       <p id="feedback${index}"></p>
     `;
     quizContainer.appendChild(quizCard);
   });
+}
+
+// Função para voltar para a tela principal
+function goToMainScreen() {
+  document.getElementById("category-buttons").classList.remove("hidden");
+  document.getElementById("quiz-container").classList.add("hidden");
+  document.getElementById("ranking").classList.remove("hidden");
 }
 
 // Função de login
@@ -138,35 +155,9 @@ function nextQuestion(nextIndex, totalQuestions) {
   }
 }
 
-// Função para atualizar os rankings de acertos
-function updateRankings(category, score) {
-  const username = document.getElementById("username").value;
-  // Verifica se o usuário já está no ranking
-  const userIndex = rankings.findIndex(entry => entry.username === username && entry.category === category);
-  if (userIndex !== -1) {
-    // Atualiza o número de acertos do usuário
-    rankings[userIndex].score += score;
-  } else {
-    // Adiciona o usuário ao ranking
-    rankings.push({ username, category, score });
-  }
-  // Atualiza a exibição do ranking
-  displayRankings();
-}
-
-// Função para exibir o ranking na tela
-function displayRankings() {
-  const rankingList = document.getElementById("ranking-list");
-  // Limpa a lista antes de atualizar
-  rankingList.innerHTML = "";
-  // Ordena o ranking por número de acertos (maior para menor)
-  rankings.sort((a, b) => b.score - a.score);
-  // Exibe cada entrada do ranking na lista
-  rankings.forEach((entry, index) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = `${index + 1}. ${entry.username}: ${entry.score} acertos`;
-    rankingList.appendChild(listItem);
-  });
+// Função para mostrar as resoluções gerais
+function showGeneralSolutions() {
+  // Implemente a lógica para exibir as resoluções gerais aqui
 }
 
 // Função de logout
@@ -177,26 +168,25 @@ function logout() {
   document.getElementById("login-form").classList.remove("hidden");
   document.getElementById("logout-btn").classList.add("hidden");
 }
-// Função para carregar as perguntas de uma categoria
-function loadCategory(category) {
-  const categoryButtons = document.getElementById("category-buttons");
+
+// Função para mostrar as resoluções gerais
+function showGeneralSolutions() {
+  // Implemente a lógica para exibir as resoluções gerais aqui
+}
+
+// Código para criar e adicionar o botão para mostrar as resoluções gerais
+function addShowSolutionsButton() {
+  const showSolutionsButton = document.createElement("button");
+  showSolutionsButton.textContent = "Resoluções Gerais";
+  showSolutionsButton.onclick = showGeneralSolutions;
+  return showSolutionsButton;
+}
+
+// Função para exibir as perguntas de uma categoria
+function displayCategoryQuestions(category) {
   const quizContainer = document.getElementById("quiz-container");
-
-  // Esconde os botões de categoria e mostra o contêiner do quiz
-  categoryButtons.classList.add("hidden");
-  quizContainer.classList.remove("hidden");
-
-  // Limpa o conteúdo anterior do contêiner do quiz
-  quizContainer.innerHTML = "";
-
-  // Adiciona o botão "Voltar"
-  const backButton = document.createElement("button");
-  backButton.textContent = "VOLTAR";
-  backButton.onclick = goToMainScreen;
-  quizContainer.appendChild(backButton);
-
-  // Carrega as perguntas da categoria selecionada
   const questions = quizzes[category];
+
   questions.forEach((question, index) => {
     const quizCard = document.createElement("div");
     quizCard.classList.add("quiz-card");
@@ -210,13 +200,34 @@ function loadCategory(category) {
     `;
     quizContainer.appendChild(quizCard);
   });
+
+  const backButton = document.createElement("button");
+  backButton.textContent = "Voltar";
+  backButton.onclick = goToMainScreen;
+  quizContainer.appendChild(backButton);
+
+  const solutionsButton = addShowSolutionsButton();
+  quizContainer.appendChild(solutionsButton);
 }
 
-// Função para voltar para a tela principal
-function goToMainScreen() {
-  document.getElementById("category-buttons").classList.remove("hidden");
-  document.getElementById("quiz-container").classList.add("hidden");
-  document.getElementById("ranking").classList.remove("hidden");
+// Função para carregar perguntas de uma categoria
+function loadCategory(category) {
+  const categoryButtons = document.getElementById("category-buttons");
+  const quizContainer = document.getElementById("quiz-container");
+
+  categoryButtons.classList.add("hidden");
+  quizContainer.classList.remove("hidden");
+  quizContainer.innerHTML = "";
+
+  displayCategoryQuestions(category);
 }
+
+// Código para criar e adicionar o botão para mostrar as resoluções gerais
+const buttonContainer = document.getElementById("button-container");
+const showSolutionsButton = document.createElement("button");
+showSolutionsButton.textContent = "Mostrar Resoluções Gerais";
+showSolutionsButton.onclick = showGeneralSolutions;
+buttonContainer.appendChild(showSolutionsButton);
+
 
 
