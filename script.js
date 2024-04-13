@@ -134,8 +134,8 @@ function checkAnswer(category, questionIndex, correctAnswer) {
   } else {
     feedback.textContent = "Está incorreto.";
     feedback.style.color = "red";
-    // Adiciona 0 ao número de acertos do usuário
-    updateRankings(category, 0);
+    // Remove 1 ao número de acertos do usuário
+    updateRankings(category, -1);
   }
   nextBtn.classList.remove("hidden");
 }
@@ -167,19 +167,6 @@ function logout() {
   document.getElementById("ranking").classList.add("hidden");
   document.getElementById("login-form").classList.remove("hidden");
   document.getElementById("logout-btn").classList.add("hidden");
-}
-
-// Função para mostrar as resoluções gerais
-function showGeneralSolutions() {
-  // Implemente a lógica para exibir as resoluções gerais aqui
-}
-
-// Código para criar e adicionar o botão para mostrar as resoluções gerais
-function addShowSolutionsButton() {
-  const showSolutionsButton = document.createElement("button");
-  showSolutionsButton.textContent = "Resoluções Gerais";
-  showSolutionsButton.onclick = showGeneralSolutions;
-  return showSolutionsButton;
 }
 
 // Função para exibir as perguntas de uma categoria
@@ -223,11 +210,80 @@ function loadCategory(category) {
 }
 
 // Código para criar e adicionar o botão para mostrar as resoluções gerais
+function addShowSolutionsButton() {
+  const showSolutionsButton = document.createElement("button");
+  showSolutionsButton.textContent = "Resoluções Gerais";
+  showSolutionsButton.onclick = showGeneralSolutions;
+  return showSolutionsButton;
+}
+
+// Função para exibir as perguntas de uma categoria
+function displayCategoryQuestions(category) {
+  const quizContainer = document.getElementById("quiz-container");
+  const questions = quizzes[category];
+
+  questions.forEach((question, index) => {
+    const quizCard = document.createElement("div");
+    quizCard.classList.add("quiz-card");
+    quizCard.innerHTML = `
+      <h3>${index + 1}. ${question.question}</h3>
+      <div class="options">
+        ${question.options.map(option => `<label><input type="radio" name="answer${index}" value="${option.split(')')[0]}">${option}</label>`).join('')}
+      </div>
+      <button onclick="checkAnswer('${category}', ${index}, '${question.answer}')">Verificar</button>
+      <p id="feedback${index}"></p>
+    `;
+    quizContainer.appendChild(quizCard);
+  });
+
+  const backButton = document.createElement("button");
+  backButton.textContent = "Voltar";
+  backButton.onclick = goToMainScreen;
+  quizContainer.appendChild(backButton);
+
+  const solutionsButton = addShowSolutionsButton();
+  quizContainer.appendChild(solutionsButton);
+}
+
+// Função para atualizar o ranking de acertos do usuário em todas as categorias
+function updateRankings(category, score) {
+  const username = document.getElementById("username").value;
+  
+  // Verifica se o usuário já existe no ranking global
+  if (userRankings.hasOwnProperty(username)) {
+    // Atualiza o número de acertos do usuário na categoria específica
+    userRankings[username][category] += score;
+    // Calcula o total de acertos do usuário em todas as categorias
+    userRankings[username].totalScore += score;
+  } else {
+    // Se o usuário não existir no ranking global, cria uma nova entrada para ele
+    userRankings[username] = { totalScore: score, matematica: 0, biologia: 0, historia: 0 };
+    userRankings[username][category] = score;
+  }
+
+  // Atualiza o ranking na página
+  displayRanking();
+}
+
+// Função para exibir o ranking na página
+function displayRanking() {
+  const rankingList = document.getElementById("ranking-list");
+  rankingList.innerHTML = "";
+
+  // Ordena os usuários por pontuação total
+  const sortedUsers = Object.entries(userRankings).sort((a, b) => b[1].totalScore - a[1].totalScore);
+
+  // Exibe os usuários ordenados por pontuação total
+  sortedUsers.forEach(([username, scores]) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${username}: ${scores.totalScore}`;
+    rankingList.appendChild(listItem);
+  });
+}
+
+// Código para criar e adicionar o botão para mostrar as resoluções gerais
 const buttonContainer = document.getElementById("button-container");
 const showSolutionsButton = document.createElement("button");
 showSolutionsButton.textContent = "Mostrar Resoluções Gerais";
 showSolutionsButton.onclick = showGeneralSolutions;
 buttonContainer.appendChild(showSolutionsButton);
-
-
-
