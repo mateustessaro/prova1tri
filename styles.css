@@ -1,3 +1,4 @@
+/* Estilos para o corpo da página */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -5,22 +6,26 @@ body {
   background-color: #f4f4f4;
 }
 
+/* Estilos para o contêiner principal */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* Estilos para o cabeçalho */
 header {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/* Estilos para o título */
 h1 {
   font-size: 32px;
   color: #333;
 }
 
+/* Estilos para os inputs e botões */
 input[type="text"],
 input[type="password"],
 button {
@@ -43,10 +48,12 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Estilos para elementos ocultos */
 .hidden {
   display: none;
 }
 
+/* Estilos para os botões de categoria */
 .category-btn {
   margin: 10px;
   padding: 10px 20px;
@@ -63,10 +70,12 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Estilos para o contêiner do quiz */
 #quiz-container {
   margin-top: 20px;
 }
 
+/* Estilos para os cartões do quiz */
 .quiz-card {
   background-color: #fff;
   border-radius: 10px;
@@ -90,6 +99,7 @@ button:hover {
   margin-right: 5px;
 }
 
+/* Estilos para o ranking */
 #ranking {
   margin-top: 40px;
 }
@@ -114,13 +124,14 @@ button:hover {
   content: "🏆";
   margin-right: 10px;
 }
-/* Adicionando estilos para o botão de sair */
+
+/* Estilos para o botão de sair */
 #logout-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 15px 30px; /* Aumentando o padding para deixar o botão maior */
-  background-color: #dc3545; /* Mudando a cor de fundo para vermelho */
+  padding: 15px 30px;
+  background-color: #dc3545;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -130,8 +141,9 @@ button:hover {
 }
 
 #logout-btn:hover {
-  background-color: #c82333; /* Mudando a cor de fundo ao passar o mouse */
+  background-color: #c82333;
 }
+
 /* CSS */
 .header-container {
   background-color: #000;
