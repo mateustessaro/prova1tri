@@ -26,11 +26,15 @@
         <button onclick="register()">Registrar</button>
         <button onclick="hideRegisterForm()">Cancelar</button>
       </div>
+    
+      <div id="quiz-container" class="hidden"></div>
+      <div id="ranking" class="hidden">
+        <h2>Ranking de Acertos</h2>
+        <ul id="ranking-list"></ul>
+      </div>
     </main>
     <button onclick="logout()" id="logout-btn" class="hidden">Sair</button>
   </div>
-
-  <!-- Movendo categorias e ranking para fora da div.container -->
   <div id="category-buttons" class="hidden">
     <button onclick="loadCategory('matematica')">
       <img src="/matematicafoto.avif" alt="Matemática">
@@ -42,13 +46,7 @@
       <img src="/HISTÓRIA.jpg" alt="História">
     </button>
   </div>
-
-  <div id="ranking" class="hidden">
-    <h2>Ranking de Acertos</h2>
-    <ul id="ranking-list"></ul>
-  </div>
-
+  
   <script src="script.js"></script>
 </body>
-
 </html>
