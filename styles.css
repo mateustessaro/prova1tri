@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/garfist');
+
+
 /* Estilos para o corpo da página */
 body {
   font-family: Arial, sans-serif;
@@ -73,6 +76,7 @@ button:hover {
 /* Estilos para o contêiner do quiz */
 #quiz-container {
   margin-top: 20px;
+  
 }
 
 /* Estilos para os cartões do quiz */
@@ -157,8 +161,11 @@ button:hover {
 
 .quizzes-title {
   color: #c2bfbf; /* Altere para a cor desejada */
+  font-family: 'Garfist', sans-serif;
+  font-size: 60px;
 }
 img{
   height: 250px;
   width: 300px;
 }
+

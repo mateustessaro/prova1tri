@@ -35,6 +35,9 @@ const quizzes = {
     { question: "Durante a Primeira Guerra Mundial, ocorrida entre 1914 e 1918, um evento que desencadeou o conflito foi:", options: ["A) O ataque japonês a Pearl Harbor.", "B) O assassinato do arquiduque Francisco Ferdinando, herdeiro do trono austro-húngaro.", "C)  O Tratado de Versalhes.", "D) A Revolução Russa."], answer: "B" },
     { question: "A conquista da América pelos europeus nos séculos XV e XVI resultou na exploração dos recursos naturais e humanos do continente. Um dos principais fatores que possibilitaram essa conquista foi:", options: ["A) O enfraquecimento dos povos indígenas devido às guerras internas.", "B) O domínio militar dos europeus sobre as civilizações americanas.", "C) A superioridade tecnológica e bélica dos europeus.", "D) A capacidade de assimilação cultural dos indígenas."], answer: "C" },
     { question: "O Movimento de Independência do Brasil, ocorrido em 1822, teve como principal líder:", options: ["A) Dom Pedro II.", "B) José Bonifácio.", "C)  Tiradentes.", "D) Dom João VI."], answer: "B" },
+  ],
+  geografia: [
+    {question: "Quantas soluções inteiras a inequação x² + x - 20 ≤ 0 admite?", options: ["A) 2", "B) 3", "C)  7", "D) 10"], answer: "D" },
   ]
 };
 
@@ -48,10 +51,12 @@ const userRankings = {};
 function loadCategory(category) {
   const categoryButtons = document.getElementById("category-buttons");
   const quizContainer = document.getElementById("quiz-container");
+ 
 
   // Esconde os botões de categoria e mostra o contêiner do quiz
   categoryButtons.classList.add("hidden");
   quizContainer.classList.remove("hidden");
+  
 
   // Limpa o conteúdo anterior do contêiner do quiz
   quizContainer.innerHTML = "";
