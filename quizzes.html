@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quizzes</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="header-container">
@@ -36,18 +36,20 @@
     </main>
     <button onclick="logout()" id="logout-btn" class="hidden">Sair</button>
   </div>
-  <div id="category-buttons" class="hidden">
+  <div id="category-buttons" class="hidden" ">
+    <div class="resolva" style="display: grid; grid-template-columns: 50% 50%;" >
     <button onclick="loadCategory('matematica')">
-      <img src="/matematicafoto.avif" alt="Matemática">
+      <img src="img/matematicafoto.avif" alt="Matemática">
     </button>
     <button onclick="loadCategory('biologia')">
-      <img src="/biologiafoto.jpg" alt="Biologia">
+      <img src="img/biologiafoto.jpg" alt="Biologia">
     </button>
     <button onclick="loadCategory('historia')">
-      <img src="/HISTÓRIA.jpg" alt="História"> 
+      <img src="img/HISTÓRIA.jpg" alt="História"> 
     </button>
   </div>
+  </div>
   
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
