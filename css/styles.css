@@ -6,7 +6,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: white;
 }
 
 /* Estilos para o contêiner principal */
@@ -57,16 +57,17 @@ button:hover {
 }
 
 /* Estilos para os botões de categoria */
-.category-btn {
+#category-buttons {
   margin: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;  
+  background-color: white;
+  color: black;  
   font-size: 16px;
-  cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'Garfist', sans-serif;
+  font-size: 12px;
 }
 
 .category-btn:hover {

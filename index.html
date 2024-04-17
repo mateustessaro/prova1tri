@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quizzes</title>
+  <title>GabaritoOnline</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="header-container">
     <div class="header">
       <h1 class="quizzes-title">GabaritoOnline</h1>
+      
     </div>
   </div>
   <div class="container">
@@ -29,14 +30,16 @@
     
       <div id="quiz-container" class="hidden"></div>  
       
-      <div id="ranking" class="hidden">
-        <h2>Ranking de Acertos</h2>
+      <div id="ranking" class="hidden" class="resolva2" style="float: right; width: 100; height: 50px;">
+        <h2>Ranking de Acertos</h2> 
         <ul id="ranking-list"></ul>
       </div>
+
     </main>
     <button onclick="logout()" id="logout-btn" class="hidden">Sair</button>
   </div>
-  <div id="category-buttons" class="hidden" ">
+  <div id="category-buttons" class="hidden" >
+    <h2>MATÉRIAS DISPONÍVEIS:</h2> 
     <div class="resolva" style="display: grid; grid-template-columns: 50% 50%;" >
     <button onclick="loadCategory('matematica')">
       <img src="img/matematicafoto.avif" alt="Matemática">
@@ -47,7 +50,12 @@
     <button onclick="loadCategory('historia')">
       <img src="img/HISTÓRIA.jpg" alt="História"> 
     </button>
+    <button onclick="loadCategory('geografia')">
+      <img src="img/geografia.webp" alt="Geofrafia">
+    </button>
+    
   </div>
+  <li><a href="conhecimentos.html" target="_blank" style="font-size: 30px; justify-content: center;">RESOLUÇOES</a></li>
   </div>
   
   <script src="js/script.js"></script>
